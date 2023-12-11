@@ -13,10 +13,10 @@ $(document).ready(function ($) {
     });
 
     // Search box
-    $(".btn-search").click(function(){
+    $(".btn-search").click(function () {
         $(".search-bar").toggleClass("active");
     });
-    $(".btn-close-search").click(function(){
+    $(".btn-close-search").click(function () {
         $(".search-bar").removeClass("active");
     });
 
@@ -34,7 +34,7 @@ $(document).ready(function ($) {
     if ($('.video_wrapper').length) {
         const video = document.getElementById("video");
         const circlePlayButton = document.getElementById("circle-play-b");
-        
+
         function togglePlay() {
             if (video.paused || video.ended) {
                 video.play();
@@ -42,7 +42,7 @@ $(document).ready(function ($) {
                 video.pause();
             }
         }
-        
+
         circlePlayButton.addEventListener("click", togglePlay);
         video.addEventListener("playing", function () {
             circlePlayButton.style.opacity = 1;
@@ -51,6 +51,7 @@ $(document).ready(function ($) {
             circlePlayButton.style.opacity = 1;
         });
     }
+
 
     // announcement_bar Slider
     if ($('.announcement').length) {
@@ -65,7 +66,7 @@ $(document).ready(function ($) {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
-            
+
         });
     }
 
@@ -86,8 +87,8 @@ $(document).ready(function ($) {
                 clickable: true,
             },
         });
-    }  
-    
+    }
+
     // brand partners slider
     if ($('.brand-partner').length) {
         var brand_partner = new Swiper(".brand-partnerslider", {
@@ -107,52 +108,86 @@ $(document).ready(function ($) {
                     slidesPerView: 1,
                     spaceBetween: 48,
                 },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 48,
-                
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 48,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 52,
-              },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 48,
+
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 48,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 52,
+                },
             },
         });
+    }
+
+    // 3d slider 
+    if ($('.testimonial_wrapper').length) {
+        var testthree = new Swiper(".test-three", {
+            slidesPerView: 1,
+            speed: 1000,
+            loop: true,
+            centeredSlides: true,
+            navigation: {
+                nextEl: ".next-btn",
+                prevEl: ".prev-btn",
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 2,
+                },
+                1199: {
+                    slidesPerView: 2.5,
+                },
+            },
+            effect: 'coverflow',
+            coverflowEffect: {
+                stretch: 100,
+                rotate: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: false,
+            },
+        });        
     }
 
     // counter number
     if ($('.counter').length) {
         var counted = 0;
-        $(window).scroll(function() {
+        $(window).scroll(function () {
 
             var oTop = $('.counter-num').offset().top - window.innerHeight;
             if (counted == 0 && $(window).scrollTop() > oTop) {
-                $('.percent').each(function() {
-                var $this = $(this),
-                    countTo = $this.attr('data-count');
-                $({
-                    countNum: $this.text()
-                }).animate({
-                    countNum: countTo
+                $('.percent').each(function () {
+                    var $this = $(this),
+                        countTo = $this.attr('data-count');
+                    $({
+                        countNum: $this.text()
+                    }).animate({
+                        countNum: countTo
                     },
 
-                    {
+                        {
 
-                    duration: 5000,
-                    easing: 'swing',
-                    step: function() {
-                        $this.text(Math.floor(this.countNum));
-                    },
-                    complete: function() {
-                        $this.text(this.countNum);
-                        //alert('finished');
-                    }
+                            duration: 5000,
+                            easing: 'swing',
+                            step: function () {
+                                $this.text(Math.floor(this.countNum));
+                            },
+                            complete: function () {
+                                $this.text(this.countNum);
+                                //alert('finished');
+                            }
 
-                    });
+                        });
                 });
                 counted = 1;
             }
@@ -180,7 +215,24 @@ $(document).ready(function ($) {
         closeButton.addEventListener("click", toggleModal);
         window.addEventListener("click", windowOnClick);
     }
+
+    // Load More
+    if ($(".bloglist-wrapper").length) {
+        $(document).ready(function () {
+            $(".bloglist__loadmoreitems").slice(0, 9).show();
+            $("#bloglist__loadmore").on("click", function (e) {
+                e.preventDefault();
+                $(".bloglist__loadmoreitems:hidden").slice(0, 3).slideDown();
+                if ($(".bloglist__loadmoreitems:hidden").length == 0) {
+                    $('.bloglist__loadmorebtn').css('display', 'none');
+                }
+            });
+        });
+    }
+
+    
 });
+
 
 $(document).on('click', '[data-lightbox]', lity);
 
@@ -217,7 +269,6 @@ $(document).on('click', '[data-lightbox]', lity);
                     } else {
                         cssmenu.find('.submenu-button').removeClass('submenu-opened');
                         $(this).addClass('submenu-opened');
-
                     }
 
                     if ($(this).siblings('ul').hasClass('open')) {
@@ -262,3 +313,5 @@ $(document).on('click', '[data-lightbox]', lity);
 
 })($);
 // Responsive menu end
+
+
